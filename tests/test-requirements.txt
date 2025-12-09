@@ -1,5 +1,1 @@
-pytest
-pytest-timeout
-hypothesis
-requests_mock
-docker
+TODO DELETE THIS FILE
