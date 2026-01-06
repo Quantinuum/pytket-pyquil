@@ -25,19 +25,19 @@ import numpy as np
 import pytest
 from _pytest.fixtures import FixtureRequest
 from pyquil import get_qc
-
 from pytket.circuit import BasisOrder, Circuit, Node, OpType, Qubit
-from pytket.extensions.pyquil import (
-    ForestBackend,
-    ForestStateBackend,
-    process_characterisation,
-)
 from pytket.passes import CliffordSimp
 from pytket.pauli import Pauli, QubitPauliString
 from pytket.utils import QubitPauliOperator
 from pytket.utils.expectations import (
     get_operator_expectation_value,
     get_pauli_expectation_value,
+)
+
+from pytket.extensions.pyquil import (
+    ForestBackend,
+    ForestStateBackend,
+    process_characterisation,
 )
 
 skip_qvm_tests = (which("docker") is None) or (platform.system() == "Windows")
@@ -138,9 +138,9 @@ def test_pauli_statevector(qvm: None, quilc: None) -> None:
     c.Rz(0.5, 0)
     b = ForestStateBackend()
     zi = QubitPauliString(Qubit(0), Pauli.Z)
-    assert get_pauli_expectation_value(c, zi, b) == 1
+    assert get_pauli_expectation_value(c, zi, b) == complex(1)
     c.X(0)
-    assert get_pauli_expectation_value(c, zi, b) == -1
+    assert get_pauli_expectation_value(c, zi, b) == complex(-1)
 
 
 @pytest.mark.skipif(

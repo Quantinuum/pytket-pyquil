@@ -19,16 +19,6 @@ from typing import Any, cast
 from uuid import uuid4
 
 import numpy as np
-
-from pyquil.api import (
-    QuantumComputer,
-    WavefunctionSimulator,
-    get_qc,
-    list_quantum_computers,
-)
-from pyquil.gates import I
-from pyquil.paulis import ID, PauliSum, PauliTerm
-from pyquil.quilatom import Qubit as Qubit_
 from pytket.backends import (
     Backend,
     CircuitNotRunError,
@@ -42,11 +32,6 @@ from pytket.backends.backendresult import BackendResult
 from pytket.backends.resulthandle import _ResultIdTuple
 from pytket.circuit import Circuit, Node, OpType, Qubit
 from pytket.extensions.pyquil._metadata import __extension_version__
-from pytket.extensions.pyquil.pyquil_convert import (
-    get_avg_characterisation,
-    process_characterisation,
-    tk_to_pyquil,
-)
 from pytket.passes import (
     AutoRebase,
     BasePass,
@@ -77,6 +62,21 @@ from pytket.predicates import (
 from pytket.utils import prepare_circuit
 from pytket.utils.operators import QubitPauliOperator
 from pytket.utils.outcomearray import OutcomeArray
+
+from pyquil.api import (
+    QuantumComputer,
+    WavefunctionSimulator,
+    get_qc,
+    list_quantum_computers,
+)
+from pyquil.gates import I
+from pyquil.paulis import ID, PauliSum, PauliTerm
+from pyquil.quilatom import Qubit as Qubit_
+from pytket.extensions.pyquil.pyquil_convert import (
+    get_avg_characterisation,
+    process_characterisation,
+    tk_to_pyquil,
+)
 
 
 class PyQuilJobStatusUnavailable(Exception):
@@ -462,7 +462,9 @@ class ForestStateBackend(Backend):
         """
         prog = tk_to_pyquil(state_circuit)
         pauli_term = self._gen_PauliTerm(pauli)
-        return complex(self._sim.expectation(prog, [pauli_term]))
+        result = [complex(x) for x in self._sim.expectation(prog, [pauli_term])]  # type: ignore
+        assert len(result) == 1
+        return result[0]
 
     def get_operator_expectation_value(
         self, state_circuit: Circuit, operator: QubitPauliOperator

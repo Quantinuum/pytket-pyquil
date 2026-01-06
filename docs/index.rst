@@ -1,7 +1,7 @@
 pytket-pyquil
 =============
 
-Rigetti's `pyQuil <http://rigetti.com/forest>`_ is a library for generating
+Rigetti's `pyQuil <https://github.com/rigetti/pyquil>`_ is a library for generating
 programs in the Quil language and running them on the Forest platform.
 
 ``pytket-pyquil`` is an extension to ``pytket`` that allows ``pytket`` circuits to be

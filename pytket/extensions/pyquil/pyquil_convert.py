@@ -24,6 +24,8 @@ from typing import (
     overload,
 )
 
+from pytket.architecture import Architecture
+from pytket.circuit import Bit, Circuit, Node, OpType, Qubit
 from sympy import Add, Expr, Mul, Number, Pow, Symbol, cos, pi, sin
 
 from pyquil import Program
@@ -53,8 +55,6 @@ from pyquil.quilatom import (
     Qubit as Qubit_,
 )
 from pyquil.quilbase import Declare, Gate, Halt, Measurement, Pragma
-from pytket.architecture import Architecture
-from pytket.circuit import Bit, Circuit, Node, OpType, Qubit
 
 _known_quil_gate = {
     "X": OpType.X,
@@ -123,7 +123,7 @@ def param_to_pyquil(p: float | Expr) -> float | Expression:
 
 def param_from_pyquil(p: float | Expression) -> Expr:
     def to_sympy(e: Any) -> float | int | Expr | Symbol:  # noqa: PLR0911
-        if isinstance(e, (float, int)):  # noqa: UP038
+        if isinstance(e, (float, int)):
             return e
         if isinstance(e, complex):
             if abs(e.imag) >= 1e-12:  # noqa: PLR2004
