@@ -3,6 +3,11 @@
 Changelog
 ~~~~~~~~~
 
+0.42.0 (unreleased)
+-------------------
+
+* Update cs-sdk-python to 0.21.22
+
 0.41.0 (January 2026)
 ---------------------
 
