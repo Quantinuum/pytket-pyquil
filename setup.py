@@ -48,7 +48,7 @@ setup(
         "pytket >= 2.11.0",
         "pyquil >= 4.13.0",
         "typing-extensions >= 4.12.2",
-        "qcs-sdk-python == 0.21.22",
+        "qcs-sdk-python == 0.26.0",
     ],
     classifiers=[
         "Environment :: Console",
